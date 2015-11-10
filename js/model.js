@@ -43,18 +43,40 @@ function createModelModule() {
 			}
 		},
 
+		bottomCollision: function() {			
+			var row = this.movingBlock.row;
+			var col = this.movingBlock.col;
+			if (row == this.height - 1) return true;
+			switch (this.movingBlock.type) {
+				case BlockTypeEnum.O:		
+					if (this.grid[row+1][col].on || this.grid[row+1][col+1].on) return true;					
+					break;
+			}
+			return false;
+		},
+
 		update: function() {				
+			var createNewBlock = false;
+
 			if (this.movingBlock == null || !this.movingBlock.moving) {
+				createNewBlock = true;	
+			} 
+			else 
+			{
+				if (!this.bottomCollision()) {
+					// move movingBlock down by 1 unit				
+					this.movingBlock.move(1, 0);
+				} else {
+					createNewBlock = true;
+				}
+			}
+
+			if (createNewBlock) {
 				console.log("creating block");
 				var block = this.blockFactory.generateBlock(BlockTypeEnum.O);				
 				this.addBlock(block);
 				this.updateMovingBlock(block.type);
-			}
-			else {
-				// move movingBlock down by 1 unit
-				console.log("moving down");
-				this.movingBlock.move(1, 0);
-			}
+			}			
 		},
 
 		clearMovingBlock: function() {
