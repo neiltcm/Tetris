@@ -6,6 +6,18 @@ function createViewModule() {
 		this.model = model;				
 		this.width = model.width;
 		this.height = model.height;
+
+		document.addEventListener('keydown', function(e) {
+			var code = e.keyCode;
+			self.clearAll();
+			if (code == 37) {				
+				self.model.moveBlock(DirectionEnum.LEFT);				
+			}
+			else if (code == 39) {
+				self.model.moveBlock(DirectionEnum.RIGHT);
+			}
+			self.renderAll();
+		});
 	};
 
 	TetrisView.prototype = {
@@ -32,8 +44,7 @@ function createViewModule() {
 			}
 		},
 
-		renderAll: function() {
-			console.log("rendering ALL");
+		renderAll: function() {			
 			var cells = $(".cell");
 			for (var i = 0; i < this.height; i++) {
 				for (var j = 0; j < this.width; j++) {					
@@ -44,13 +55,13 @@ function createViewModule() {
 			}
 		},
 
-		update: function() {
-			this.clearAll();
-			this.model.update();
+		update: function() {	
+			this.clearAll();		
+			this.model.update();			
 			this.renderAll();
 		},
 
-		clearAll: function() {
+		clearAll: function() {			
 			var cells = $(".cell");
 			for (var i = 0; i < cells.length; i++) {
 				cells[i].className = "cell";

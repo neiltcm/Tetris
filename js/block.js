@@ -5,6 +5,11 @@ var BlockTypeEnum = Object.freeze({
 	O : "O"
 });
 
+var DirectionEnum = Object.freeze({
+	LEFT : "Left",
+	RIGHT : "Right"
+});
+
 function createBlockModule() {
 	var BlockFactory = function() {};
 
@@ -19,7 +24,7 @@ function createBlockModule() {
 			switch(type) {
 				case BlockTypeEnum.O:
 					b.setPosition(1, 4);
-					b.setCells();					
+					b.setCells();									
 					break;
 			}				
 			return b;
@@ -31,9 +36,18 @@ function createBlockModule() {
 		this.listeners = [];
 		this.cells = [];
 		this.moving = true;
+		this.setWidth(type);
 	};
 
-	Block.prototype = {		
+	Block.prototype = {	
+		setWidth: function(type) {
+			switch (type) {
+				case BlockTypeEnum.O:
+					this.width = 2;
+					break;
+			}
+		},
+
 		addListener: function(listener) {
 			this.listeners.push(listener);
 		},
@@ -53,7 +67,7 @@ function createBlockModule() {
 			this.notifyUpdate();
 		},
 
-		setPosition: function(row, col) {			
+		setPosition: function(row, col) {				
 			this.row = row;
 			this.col = col;						
 		},
@@ -69,25 +83,24 @@ function createBlockModule() {
 			}
 		},
 
-		updateCells: function(row, col) {			
+		updateCells: function(row, col) {							
 			for (var i = 0; i < this.cells.length; i++) {				
 				this.cells[i][0] += row;
 				this.cells[i][1] += col;				
-			}
+			}			
 		},
 
 		setMoving: function(moving){
 			this.moving = moving;
 		},
 
-		notifyClear: function() {
+		notifyClear: function() {			
 			_.each(this.listeners, function(listener) {
 				listener.clearMovingBlock();
 			});
 		},
 
-		notifyUpdate: function() {
-			console.log("notify update");
+		notifyUpdate: function() {			
 			var type = this.type;
 			_.each(this.listeners, function(listener) {				
 				listener.updateMovingBlock(type);

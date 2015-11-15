@@ -55,6 +55,16 @@ function createModelModule() {
 			return false;
 		},
 
+		leftCollision: function() {
+			if (this.movingBlock.col == 0) return true;
+			return false;
+		}, 
+
+		rightCollision: function() {
+			if (this.movingBlock.col + this.movingBlock.width == this.width) return true;
+			return false;
+		},
+
 		update: function() {				
 			var createNewBlock = false;
 
@@ -71,37 +81,44 @@ function createModelModule() {
 				}
 			}
 
-			if (createNewBlock) {
-				console.log("creating block");
-				var block = this.blockFactory.generateBlock(BlockTypeEnum.O);				
+			if (createNewBlock) {				
+				var block = this.blockFactory.generateBlock(BlockTypeEnum.O);									
 				this.addBlock(block);
 				this.updateMovingBlock(block.type);
 			}			
 		},
 
-		clearMovingBlock: function() {
-			if (this.movingBlock != null && this.movingBlock.moving) {
-				var cells = this.movingBlock.cells;
-				for (var i = 0; i < cells.length; i++) {
-					var cellInGrid = this.grid[cells[i][0]][cells[i][1]];
+		clearMovingBlock: function() {						
+			if (this.movingBlock != null && this.movingBlock.moving) {				
+				var cells = this.movingBlock.cells;						
+				for (var i = 0; i < cells.length; i++) {					
+					var cellInGrid = this.grid[cells[i][0]][cells[i][1]];					
 					cellInGrid.on = false;
 					cellInGrid.type = BlockTypeEnum.None;
-
 				}
 			}
 		},
 
-		updateMovingBlock: function(type) {						
-			console.log(this.movingBlock);	
+		updateMovingBlock: function(type) {		
 			if (this.movingBlock != null && this.movingBlock.moving) {						
-				var cells = this.movingBlock.cells;
+				var cells = this.movingBlock.cells;				
 				for (var i = 0; i < cells.length; i++) {
 					var row = cells[i][0];
 					var col = cells[i][1];
 					this.grid[row][col].on = true;
-					this.grid[row][col].type = type;					
-
+					this.grid[row][col].type = type;
 				}
+			}
+		},
+
+		moveBlock: function(dir) {			
+			if (dir == DirectionEnum.LEFT) {	
+				if (!this.leftCollision())			
+					this.movingBlock.move(0, -1);
+			}
+			else if (dir == DirectionEnum.RIGHT) {
+				if (!this.rightCollision())
+					this.movingBlock.move(0, 1);	
 			}
 		}
 	};
