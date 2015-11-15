@@ -56,12 +56,27 @@ function createModelModule() {
 		},
 
 		leftCollision: function() {
-			if (this.movingBlock.col == 0) return true;
+			var row = this.movingBlock.row;
+			var col = this.movingBlock.col;
+			if (col == 0) return true;
+			switch (this.movingBlock.type) {
+				case BlockTypeEnum.O:
+					if (this.grid[row][col-1].on || this.grid[row-1][col-1].on) return true;
+					break;
+			}
 			return false;
 		}, 
 
 		rightCollision: function() {
-			if (this.movingBlock.col + this.movingBlock.width == this.width) return true;
+			var row = this.movingBlock.row;
+			var col = this.movingBlock.col;
+			var width = this.movingBlock.width;
+			if (col + width == this.width) return true;
+			switch (this.movingBlock.type) {
+				case BlockTypeEnum.O:
+					if (this.grid[row][col+width].on || this.grid[row-1][col+width].on) return true;
+					break;
+			}
 			return false;
 		},
 
@@ -119,6 +134,11 @@ function createModelModule() {
 			else if (dir == DirectionEnum.RIGHT) {
 				if (!this.rightCollision())
 					this.movingBlock.move(0, 1);	
+			}
+			else if (dir == DirectionEnum.DOWN) {
+				if (!this.bottomCollision()) {
+					this.movingBlock.move(1, 0);
+				}
 			}
 		}
 	};

@@ -18,5 +18,5 @@ window.addEventListener('load', function() {
 
 	setInterval(function(){		
 		view.update();
-	}, 1000);
+	}, 500);
 });

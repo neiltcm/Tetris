@@ -7,7 +7,8 @@ var BlockTypeEnum = Object.freeze({
 
 var DirectionEnum = Object.freeze({
 	LEFT : "Left",
-	RIGHT : "Right"
+	RIGHT : "Right",
+	DOWN : "Down"
 });
 
 function createBlockModule() {

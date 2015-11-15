@@ -8,14 +8,17 @@ function createViewModule() {
 		this.height = model.height;
 
 		document.addEventListener('keydown', function(e) {
-			var code = e.keyCode;
+			var code = e.keyCode;			
 			self.clearAll();
 			if (code == 37) {				
 				self.model.moveBlock(DirectionEnum.LEFT);				
 			}
 			else if (code == 39) {
 				self.model.moveBlock(DirectionEnum.RIGHT);
-			}
+			}		
+			else if (code == 40) {
+				self.model.moveBlock(DirectionEnum.DOWN);
+			}	
 			self.renderAll();
 		});
 	};
