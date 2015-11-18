@@ -44,6 +44,24 @@ function createViewModule() {
 				case BlockTypeEnum.O:
 					cellOnScreen.className = "cell O";
 					break;
+				case BlockTypeEnum.I:
+					cellOnScreen.className = "cell I";
+					break;
+				case BlockTypeEnum.J:
+					cellOnScreen.className = "cell J";
+					break;
+				case BlockTypeEnum.L:
+					cellOnScreen.className = "cell L";
+					break;
+				case BlockTypeEnum.S:
+					cellOnScreen.className = "cell S";
+					break;
+				case BlockTypeEnum.Z:
+					cellOnScreen.className = "cell Z";
+					break;
+				case BlockTypeEnum.T:
+					cellOnScreen.className = "cell T";
+					break;
 			}
 		},
 

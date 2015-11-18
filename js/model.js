@@ -97,7 +97,7 @@ function createModelModule() {
 			}
 
 			if (createNewBlock) {				
-				var block = this.blockFactory.generateBlock(BlockTypeEnum.O);									
+				var block = this.blockFactory.generateRandomBlock();
 				this.addBlock(block);
 				this.updateMovingBlock(block.type);
 			}			

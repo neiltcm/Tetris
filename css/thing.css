@@ -19,5 +19,35 @@ body
 
 .O
 {
-	background: red;
+	background: rgb(248, 211, 114);
+}
+
+.I
+{
+	background: rgb(65, 202, 221);
+}
+
+.L
+{
+	background: rgb(238, 169, 3);
+}
+
+.J
+{
+	background: rgb(80, 157, 235);
+}
+
+.S
+{
+	background: rgb(195, 234, 3);
+}
+
+.Z
+{
+	background: rgb(230, 135, 5);
+}
+
+.T
+{
+	background: rgb(202, 119, 237);
 }
